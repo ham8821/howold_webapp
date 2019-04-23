@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Header from './Components/Header/Header';
 import DropArea from './Components/DropArea/DropArea';
+import Header from './Components/Header/Header';
 import Result from './Components/Result/Result';
 
 interface IState {
@@ -20,13 +20,15 @@ interface IState {
         this.setState({result:resultString,filelength:filelen})
       }
 
-    public render() {
-      return (
-      <div>
-        <Header />
-        </div>
-      );
-    }
+      public render() {
+        return (
+          <div>
+            <Header />
+            <DropArea setResults={this.resultstate} />
+            <Result result={this.state.result} filelength={this.state.filelength} />
+          </div>
+        );
+      }
 }
 
 export default App;

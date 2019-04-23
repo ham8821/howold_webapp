@@ -1,6 +1,6 @@
-import * as React from 'react';
-import ReactDropzone from 'react-dropzone';
-import './DropArea.css';
+import * as React from 'react'
+import ReactDropzone from 'react-dropzone'
+import './DropArea.css'
 
 interface IState {
     imageFiles: any[],
@@ -15,10 +15,11 @@ export default class DropArea extends React.Component<IProps, IState>{
     constructor(props: any) {
         super(props)
         this.state = {
-            imageFiles: [],
-            dropzone: this.onDrop.bind(this)
+            dropzone: this.onDrop.bind(this),
+            imageFiles: []
+            
         }
- }
+    }
 
     public onDrop(files: any) {
         this.setState({
@@ -39,7 +40,9 @@ export default class DropArea extends React.Component<IProps, IState>{
             this.props.setResults("Sorry we had trouble loading that file please use a downloaded image file",0);
         }
     }
-      public upload(base64String: any) {
+
+
+    public upload(base64String: any) {
         const base64 = require('base64-js');
         const byteArray = base64.toByteArray(base64String);
         fetch('https://whatsmyage.azurewebsites.net/image', {
@@ -49,8 +52,6 @@ export default class DropArea extends React.Component<IProps, IState>{
             },
             method: 'POST'
         })
-        // once this fectch is finished, 
-        //then this will be the next step.
             .then((response: any) => {
                 if (!response.ok) {
                     this.props.setResults("Sorry there was an error",this.state.imageFiles.length)
@@ -65,6 +66,7 @@ export default class DropArea extends React.Component<IProps, IState>{
                 }
             })
     }
+
     public render() {
         return (
             <div className="cont">
@@ -73,7 +75,7 @@ export default class DropArea extends React.Component<IProps, IState>{
                         <ReactDropzone accept='image/*' onDrop={this.state.dropzone} style={{ position: "relative" }}>
                             <div className="dropZoneText">
                                 {
-                                    this.state.imageFiles.length > 0 ? // ? works like an if statement
+                                    this.state.imageFiles.length > 0 ?
                                         <div>{this.state.imageFiles.map((file) => <img className="image1" key={file.name} src={file.preview} />)}</div> :
                                         <p>Try dropping some files here, or click to select files to upload.</p>
                                 }
@@ -84,5 +86,4 @@ export default class DropArea extends React.Component<IProps, IState>{
             </div>
         )
     }
-  }
-  
+}
